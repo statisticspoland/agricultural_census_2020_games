@@ -1,0 +1,95 @@
+---
+layout: default
+---
+
+<div class="matchgame">
+
+			<div id="modal">
+			<div class="modalconent" style="display: none;">
+					 <h1></h1>
+
+						<p>Posegreguj śmieci do odpowiednich pojemników!</p>
+						<section class="usa-section">
+					    <div>
+					          <figure>
+					              <a><img src="{{site.baseurl}}/assets/img/kosze/zolty.png"></a>
+					              <figcaption class="caption" style="display: block;">
+					              	<p><b>Tworzywa sztuczne</b></p>
+													<p>plastikowe butelki</p>
+													<p>opakowania po żywności</p>
+													<p>metalowe puszki</p>
+													<p>drobny złom żelazny</p>
+													<p>plastikowe worki</p>
+					              </figcaption>
+					          </figure>
+					          <figure>
+					              <a><img src="{{site.baseurl}}/assets/img/kosze/zielony.png"></a>
+					              <figcaption class="caption" style="display: block;">
+					              	<p><b>Szkło</b></p>
+													<p>szklane butelki i słoiki</p>
+													<p>szklane opakowania po kosmetykach</p>
+					          		</figcaption>
+					          </figure>
+					          <figure>
+					              <a><img src="{{site.baseurl}}/assets/img/kosze/niebieski.png"></a>
+					              <figcaption class="caption" style="display: block;">
+					              	<p><b>Papier</b></p>
+													<p>opakowania z papieru, kartonu</p>
+													<p>torby, worki papierowe</p>
+													<p>gazety, czasopisma</p>
+													<p>katalogi, ulotki</p>
+													<p>zeszyty, książki</p>
+					              </figcaption>
+					          </figure>
+					          <figure>
+					              <a><img src="{{site.baseurl}}/assets/img/kosze/brazowy.png"></a>
+					              <figcaption class="caption" style="display: block;">
+					              	<p><b>Bio</b></p>
+													<p>odpadki warzywne i owocowe</p>
+													<p>resztki jedzenia</p>
+													<p>fusy</p>
+					              </figcaption>
+					          </figure>
+					          <figure>
+					              <a><img src="{{site.baseurl}}/assets/img/kosze/czarny.png"></a>
+					              <figcaption class="caption" style="display: block;">
+					              	<p><b>Odpady zmieszane</b></p>
+													<p>zabrudzone folie</p>
+													<p>zatłuszczony papier</p>
+													<p>zużyte ręczniki</p>
+													<p>ceramika, porcelana</p>
+													<p>mięso, kości, ości</p>
+					              </figcaption>
+					          </figure>
+					    </div>
+					  </section>
+						<button id="button">Ok</button>
+				</div>
+			</div>
+
+		<div id="game_container">
+			<div id="draggable_container"></div>
+			<div id="droppable_container"></div>
+		</div>
+
+		<div style="font-size: 9px;">Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+</div>
+
+<script>
+
+
+window.onload = function () {
+		$('.modalconent').css("display","block");
+		$('body').css("touch-action","none");
+    document.getElementById('button').onclick = function () {
+        document.getElementById('modal').style.display = "none";
+				$('body').css("touch-action","auto");
+    };
+
+		var rozdziel=$( window ).width();
+		if (rozdziel<700){
+			$('.kosze').height(140);
+		}
+};
+</script>

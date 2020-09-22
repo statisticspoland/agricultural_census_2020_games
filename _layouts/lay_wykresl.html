@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<div id="square">
+    <div id="puzzle"></div>
+    <ul id="words">
+        <li><p id="add-word"></p></li>
+    </ul>
+</div>
+
+
+<script>
+
+zestaw={{page.which | split: "," | jsonify}}
+zestaw.map(word => WordFindGame.insertWordBefore($('#add-word').parent(), word));
+
+
+var secretword={{page.secret | jsonify}};
+
+function recreate() {
+    $('#result-message').removeClass();
+    var fillBlanks, game;
+
+    fillBlanks = secretword;
+    try {
+        game = new WordFindGame('#puzzle', {
+            allowedMissingWords: 0,
+            maxGridGrowth: 5,
+            fillBlanks: fillBlanks,
+            allowExtraBlanks: ['none', 'secret-word-plus-blanks'].includes($('#extra-letters').val()),
+            maxAttempts: 100,
+            hw: {{page.hw}},
+        });
+    } catch (error) {
+        recreate();
+    }
+    wordfind.print(game);
+    window.game = game;
+
+
+
+
+}
+recreate();
+
+</script>

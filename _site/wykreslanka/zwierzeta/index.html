@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<meta charset="utf-8">
+
+				<title>Gry</title>
+				<link rel="icon" type="image/png" href="/spis_rolny_2020_gry/assets/img/favicon.png" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+				<link href="/spis_rolny_2020_gry/assets/css/wykreslanka.css" rel="stylesheet">
+				<link href="/spis_rolny_2020_gry/assets/css/segregacja.css" rel="stylesheet" />
+				<link href="/spis_rolny_2020_gry/assets/css/memory.css" rel="stylesheet">
+				<link href="/spis_rolny_2020_gry/assets/css/header.css" rel="stylesheet">
+
+
+
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		    <script type="text/javascript" src="/spis_rolny_2020_gry/assets/js/vendor/wykreslanka.js"></script>
+		    <script type="text/javascript" src="/spis_rolny_2020_gry/assets/js/vendor/wykreslankagra.js"></script>
+				<script type="text/javascript" src="/spis_rolny_2020_gry/assets/js/vendor/segregacja.js"></script>
+
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+</head>
+
+
+<body>
+
+	<div class="topnav" id="myTopnav">
+  <a href="https://szczecin.stat.gov.pl" class="active"><img src="/spis_rolny_2020_gry/assets/img/logo_szczecin.svg" width="240px"></a>
+  <a href="javascript:void(0);" style="font-size:15px;margin-top: 35px;" class="icon" onclick="myFunction()">&#9776;</a>
+  <div id="navright">
+    <a></a>
+    <a href="/spis_rolny_2020_gry/">Strona główna</a>
+    <a href="/spis_rolny_2020_gry/wykreslanka">Wykreślanka</a>
+    <a href="/spis_rolny_2020_gry/segregacja">Segregacja</a>
+    <a href="/spis_rolny_2020_gry/memory">Memory</a>
+  </div>
+</div>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+	<div id="main">
+		<article>
+			<div id="square">
+    <div id="puzzle"></div>
+    <ul id="words">
+        <li><p id="add-word"></p></li>
+    </ul>
+</div>
+
+
+<script>
+
+zestaw=["bażant","cielę","indyk","kaczka","koń","koza","krowa","kura","kurczak","owca","struś","świnia","cap","lama"]
+zestaw.map(word => WordFindGame.insertWordBefore($('#add-word').parent(), word));
+
+
+var secretword="ECSLOPWYNLORSIPSYNHCEZSWOP";
+
+function recreate() {
+    $('#result-message').removeClass();
+    var fillBlanks, game;
+
+    fillBlanks = secretword;
+    try {
+        game = new WordFindGame('#puzzle', {
+            allowedMissingWords: 0,
+            maxGridGrowth: 5,
+            fillBlanks: fillBlanks,
+            allowExtraBlanks: ['none', 'secret-word-plus-blanks'].includes($('#extra-letters').val()),
+            maxAttempts: 100,
+            hw: 9,
+        });
+    } catch (error) {
+        recreate();
+    }
+    wordfind.print(game);
+    window.game = game;
+
+
+
+
+}
+recreate();
+
+</script>
+
+		</article>
+		<footer>
+
+</footer>
+
+
+</div>
+</body>
+
+</html>

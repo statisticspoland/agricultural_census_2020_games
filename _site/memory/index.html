@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<meta charset="utf-8">
+
+				<title>Gry</title>
+				<link rel="icon" type="image/png" href="/spis_rolny_2020_gry/assets/img/favicon.png" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+				<link href="/spis_rolny_2020_gry/assets/css/wykreslanka.css" rel="stylesheet">
+				<link href="/spis_rolny_2020_gry/assets/css/segregacja.css" rel="stylesheet" />
+				<link href="/spis_rolny_2020_gry/assets/css/memory.css" rel="stylesheet">
+				<link href="/spis_rolny_2020_gry/assets/css/header.css" rel="stylesheet">
+
+
+
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		    <script type="text/javascript" src="/spis_rolny_2020_gry/assets/js/vendor/wykreslanka.js"></script>
+		    <script type="text/javascript" src="/spis_rolny_2020_gry/assets/js/vendor/wykreslankagra.js"></script>
+				<script type="text/javascript" src="/spis_rolny_2020_gry/assets/js/vendor/segregacja.js"></script>
+
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+</head>
+
+
+<body>
+
+	<div class="topnav" id="myTopnav">
+  <a href="https://szczecin.stat.gov.pl" class="active"><img src="/spis_rolny_2020_gry/assets/img/logo_szczecin.svg" width="240px"></a>
+  <a href="javascript:void(0);" style="font-size:15px;margin-top: 35px;" class="icon" onclick="myFunction()">&#9776;</a>
+  <div id="navright">
+    <a></a>
+    <a href="/spis_rolny_2020_gry/">Strona główna</a>
+    <a href="/spis_rolny_2020_gry/wykreslanka">Wykreślanka</a>
+    <a href="/spis_rolny_2020_gry/segregacja">Segregacja</a>
+    <a href="/spis_rolny_2020_gry/memory">Memory</a>
+  </div>
+</div>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+	<div id="main">
+		<article>
+			<div class="game">
+  <div class="game-score" style="display: none;">
+    Score panel
+  </div>
+
+	<div class="litery">
+    <div style="float: left;width: 180px;text-align: center;position: absolute;left: 5px;">A</div>
+		<div style="float: left;width: 180px;text-align: center;position: absolute;left: 195px;">B</div>
+		<div style="float: left;width: 180px;text-align: center;position: absolute;left: 385px;">C</div>
+		<div style="float: left;width: 180px;text-align: center;position: absolute;left: 575px;">D</div>
+		<div style="float: left;width: 180px;text-align: center;position: absolute;left: 765px;">E</div>
+		<div style="float: left;width: 180px;text-align: center;position: absolute;left: 955px;">F</div>
+	</div>
+
+	<div class="cyfry">
+		<div style="height: 200px;margin-top: 30px;line-height: 220px;">1</div>
+		<div style="height: 200px;margin-top: 30px;line-height: 220px;">2</div>
+		<div style="height: 200px;margin-top: 30px;line-height: 220px;">3</div>
+	</div>
+
+    <div class="game-board" style="display: none;overflow-x: auto;">
+    </div>
+
+</div>
+
+<script>
+
+ $("body").css("max-width", "1200px");
+
+ var rozdziel=$( window ).width();
+ if (rozdziel<700){
+    tc=12;
+    tr=3;
+ }else if (rozdziel<=1025 && rozdziel>=700) {
+   tc=20;
+   tr=5;
+ }
+ else{
+   tc=18;
+   tr=6;
+ }
+
+var a=0;
+const memoryGame = {
+    tileCount : tc, //liczba klocków 16
+    tileOnRow : tr, //liczba klocków na rząd 4
+    divBoard : null, //div z planszą gry
+    divScore : null, //div z wynikiem gry
+    tiles : [], //tutaj trafi wymieszana tablica klocków
+    tilesChecked : [], //zaznaczone klocki
+    moveCount : 0, //liczba ruchów
+    tilesImg : [ //grafiki dla klocków
+        '/spis_rolny_2020_gry/assets/img/cards/pies.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/indyk.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/kaczka.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/kon.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/kot.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/koza.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/krowa.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/kura.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/owca.jpg',
+        '/spis_rolny_2020_gry/assets/img/cards/swinia.jpg'
+
+    ],
+    canGet : true, //czy można klikać na kafelki
+    tilePairs : 0, //liczba dopasowanych kafelkow
+
+
+    tileClick : function(e) {
+        if (this.canGet) {
+            //jeżeli jeszcze nie pobraliśmy 1 elementu
+            //lub jeżeli index tego elementu nie istnieje w pobranych...
+            if (!this.tilesChecked[0] || (this.tilesChecked[0].dataset.index !== e.target.dataset.index)) {
+                this.tilesChecked.push(e.target);
+                e.target.style.backgroundImage = 'url(' + this.tilesImg[e.target.dataset.cardType] + ')';
+								e.target.style.backgroundSize = 'cover';
+            }
+
+            if (this.tilesChecked.length === 2) {
+                this.canGet = false;
+
+                if (this.tilesChecked[0].dataset.cardType === this.tilesChecked[1].dataset.cardType) {
+                    setTimeout(this.deleteTiles.bind(this), 500);
+                    a=a+1
+                    this.divScore.innerHTML = "Wynik "+a;
+                } else {
+                    a=a-1
+                    setTimeout(this.resetTiles.bind(this), 500);
+                    this.divScore.innerHTML = "Wynik "+a;
+                }
+
+                this.moveCount++;
+
+            }
+        }
+    },
+
+    deleteTiles : function() {
+        this.tilesChecked[0].remove();
+        this.tilesChecked[1].remove();
+
+        this.canGet = true;
+        this.tilesChecked = [];
+
+        this.tilePairs++;
+        if (this.tilePairs >= this.tileCount / 2) {
+            this.divScore.innerHTML = "Twój wynik: "+a+"! Koniec gry :)";
+        }
+    },
+
+    resetTiles : function() {
+        this.tilesChecked[0].style.backgroundImage = 'url(/spis_rolny_2020_gry/assets/img/cards/title.png)';
+        this.tilesChecked[1].style.backgroundImage = 'url(/spis_rolny_2020_gry/assets/img/cards/title.png)';
+
+        this.tilesChecked = [];
+        this.canGet = true;
+    },
+
+    startGame : function() {
+        //czyścimy planszę
+        this.divBoard = document.querySelector('.game-board');
+        this.divBoard.style.display = "block";
+        this.divBoard.innerHTML = '';
+
+        //czyścimy planszę z ruchami
+        this.divScore = document.querySelector('.game-score');
+        this.divScore.style.display = "block";
+        this.divScore.innerHTML = 'Wynik ';
+
+				this.divScore1 = document.querySelector('.litery');
+
+				this.divScore2 = document.querySelector('.cyfry');
+
+        //czyścimy zmienne (bo gra może się zacząć ponownie)
+        this.tiles = [];
+        this.tilesChecked = [];
+        this.moveCount = 0;
+        this.canGet = true;
+        this.tilePairs = 0;
+
+        //generujemy tablicę numerów kocków (parami)
+        for (let i=0; i<this.tileCount; i++) {
+            this.tiles.push(Math.floor(i/2));
+        }
+
+        //i ją mieszamy
+        for (let i=this.tileCount-1; i>0; i--) {
+            const swap = Math.floor(Math.random()*i);
+            const tmp = this.tiles[i];
+            this.tiles[i] = this.tiles[swap];
+            this.tiles[swap] = tmp;
+        }
+
+        for (let i=0; i<this.tileCount; i++) {
+            const tile = document.createElement('div');
+            tile.classList.add("game-tile");
+            this.divBoard.appendChild(tile);
+
+            tile.dataset.cardType = this.tiles[i];
+            tile.dataset.index = i;
+
+            tile.style.left = 5 + (tile.offsetWidth+10) * (i%this.tileOnRow) + 'px'
+            tile.style.top = 5 + (tile.offsetHeight+10) * (Math.floor(i/this.tileOnRow)) + 'px';
+
+            tile.addEventListener('click', this.tileClick.bind(this));
+        }
+    }
+}
+
+
+    memoryGame.startGame();
+
+
+    (function() {
+      var target = $(".litery");
+      $(".game-board").scroll(function() {
+        target.prop("scrollRight", this.scrollRight)
+              .prop("scrollLeft", this.scrollLeft);
+      });
+    })();
+
+</script>
+
+		</article>
+		<footer>
+
+</footer>
+
+
+</div>
+</body>
+
+</html>

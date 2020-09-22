@@ -1,0 +1,35 @@
+/*----------------do gry------------------*/
+.game-board {
+    margin: 10px 30px 20px 30px;
+    position: relative;
+    background: #fff;
+    height: 700px;
+    border: 1px solid #ddd;
+    background: #fff url(images/spisrolnybaner.jpg) center center no-repeat;
+    background-size: contain;
+}
+
+.game-tile {
+    position: absolute;
+    cursor: pointer;
+    width: 180px;
+    height: 220px;
+    background: #9eaf17 url(images/title.png) center center no-repeat;
+}
+
+.game-score {
+    text-align: center;
+}
+
+.cyfry{
+  display: block;
+  position: absolute;
+  margin-left: 10px;
+}
+.litery{
+  display: block;
+  margin: 30px 30px 0px 30px;
+  position: relative;
+  height: 30px;
+  overflow: hidden;
+}
